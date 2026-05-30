@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sonic Wristband - VIP Pre-Release</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+</head>
+<body>
+    <div class="background-glow-top"></div>
+    <div class="background-glow-bottom"></div>
+
+    <header class="header-glassmorphic">
+        <div class="container">
+            <h1 class="logo">Sonic<span>Wristband</span></h1>
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#pre-release" class="cta-button-small">Pre-Release</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero-section container">
+            <div class="hero-content">
+                <p class="tagline">Hydration Reimagined</p>
+                <h2>Optimize Your Hydration. Elevate Your Performance.</h2>
+                <p class="subheadline">Introducing The Sonic Wristband: Real-time, non-invasive dehydration alerts to keep you at your peak, always.</p>
+                <form id="waitlist-form" class="waitlist-form glassmorphic-card">
+                    <input type="email" id="email-input" placeholder="Enter your email to secure your spot" required aria-label="Email for VIP Pre-Release">
+                    <button type="submit" id="submit-button" class="cta-button">Join VIP Pre-Release <span class="arrow-icon">→</span></button>
+                    <p class="form-note">Launching December 2026. Secure 40% off for early birds!</p>
+                </form>
+                <div id="success-message" class="success-message glassmorphic-card hidden">
+                    <h3>✅ Success!</h3>
+                    <p>You're on the VIP list. Check your inbox for updates!</p>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://storage.googleapis.com/gweb-cloudblog-images/SonicWristbandMockup.png" alt="Sleek Sonic Wristband on a wrist with glowing cyan accents" loading="eager">
+            </div>
+        </section>
+
+        <section id="features" class="features-section container">
+            <h3>Designed for Peak Performance</h3>
+            <div class="features-grid">
+                <div class="feature-card glassmorphic-card">
+                    <div class="icon">✨</div>
+                    <h4>Non-Invasive Precision</h4>
+                    <p>Experience continuous, real-time hydration monitoring using advanced ultrasonic sensors – no needles, just absolute safety and comfort.</p>
+                </div>
+                <div class="feature-card glassmorphic-card">
+                    <div class="icon">⚡</div>
+                    <h4>Proactive Dehydration Alerts</h4>
+                    <p>Receive subtle haptic vibrations on your wristband and custom notifications on your phone, alerting you to dehydration *before* you feel thirsty.</p>
+                </div>
+                <div class="feature-card glassmorphic-card">
+                    <div class="icon">♻️</div>
+                    <h4>Sustainable Cyber-Slate Design</h4>
+                    <p>Adorn a sleek, futuristic wristband crafted from marine recycled plastics, combining cutting-edge aesthetics with environmental responsibility.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-glassmorphic">
+        <div class="container">
+            <p>&copy; 2026 The Sonic Wristband. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

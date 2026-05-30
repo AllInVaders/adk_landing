@@ -1,0 +1,9 @@
+google-adk
+fastapi
+uvicorn
+pydantic
+aiofiles
+aiosqlite
+google-genai
+sqlalchemy
+greenlet

@@ -1,0 +1,634 @@
+/* Variables */
+:root {
+    --color-background-dark: #090d16;
+    --color-glass-border: rgba(255, 255, 255, 0.08);
+    --color-glass-bg: rgba(15, 23, 42, 0.4); /* Slightly lighter than background, for contrast */
+    --color-cyan-accent: #06b6d4; /* Tailwind cyan-500 */
+    --color-cyan-glow: #22d3ee; /* Tailwind cyan-400 */
+    --color-text-light: #e2e8f0; /* Slate 200 */
+    --color-text-muted: #94a3b8; /* Slate 400 */
+    --font-outfit: 'Outfit', sans-serif;
+    --font-jakarta: 'Plus Jakarta Sans', sans-serif;
+    --glow-strength: 0 0 15px var(--color-cyan-glow), 0 0 30px var(--color-cyan-accent);
+    --glow-strength-sm: 0 0 8px var(--color-cyan-glow), 0 0 15px var(--color-cyan-accent);
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-jakarta);
+    background-color: var(--color-background-dark);
+    color: var(--color-text-light);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Background Gradient Effect */
+.background-gradient {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 60% 30%, rgba(6, 182, 212, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 90%, rgba(6, 182, 212, 0.05) 0%, transparent 60%);
+    opacity: 0.7;
+    z-index: -1;
+    animation: backgroundMove 60s infinite alternate linear;
+}
+
+@keyframes backgroundMove {
+    from {
+        transform: translate(0, 0);
+    }
+    to {
+        transform: translate(10%, 10%);
+    }
+}
+
+/* Glassmorphic Card Style */
+.glassmorphic-card {
+    background: var(--color-glass-bg);
+    border: 1px solid var(--color-glass-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glassmorphic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3), var(--glow-strength-sm);
+}
+
+
+/* Typography */
+h1 {
+    font-family: var(--font-outfit);
+    font-size: 3.8rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: var(--color-text-light);
+    text-shadow: var(--glow-strength-sm);
+}
+
+h2 {
+    font-family: var(--font-outfit);
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-light);
+}
+
+h3 {
+    font-family: var(--font-outfit);
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--color-text-light);
+}
+
+p {
+    font-family: var(--font-jakarta);
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 4rem;
+    color: var(--color-text-light);
+    font-weight: 700;
+    text-shadow: var(--glow-strength-sm);
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    margin: 2rem 4rem 0;
+    z-index: 1000;
+    position: relative;
+}
+
+.logo {
+    font-family: var(--font-outfit);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-cyan-glow);
+    text-shadow: 0 0 5px var(--color-cyan-glow);
+}
+
+nav a {
+    color: var(--color-text-light);
+    text-decoration: none;
+    font-weight: 400;
+    margin-left: 2.5rem;
+    font-size: 1.05rem;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--color-cyan-glow);
+    text-shadow: 0 0 8px var(--color-cyan-glow);
+}
+
+/* Main Content Layout */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Hero Section */
+.hero-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    min-height: 80vh;
+    padding: 2rem 0;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+.hero-content h2 {
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+    text-shadow: none;
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    max-width: 500px;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 2;
+}
+
+.image-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    height: 90%;
+    background: radial-gradient(circle, var(--color-cyan-glow) 0%, transparent 60%);
+    opacity: 0.3;
+    filter: blur(50px);
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+/* CTA Button */
+.cta-button {
+    background: linear-gradient(90deg, var(--color-cyan-accent) 0%, var(--color-cyan-glow) 100%);
+    color: var(--color-background-dark);
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-outfit);
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: all 0.5s ease;
+    z-index: -1;
+}
+
+.cta-button:hover::before {
+    left: 100%;
+}
+
+.cta-button.glow-on-hover {
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
+}
+.cta-button.glow-on-hover:hover {
+    box-shadow: 0 0 25px rgba(6, 182, 212, 0.8), 0 0 40px rgba(6, 182, 212, 0.5);
+    transform: translateY(-3px);
+}
+
+/* Features Section */
+.features-section {
+    padding: 6rem 0;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    text-align: center;
+}
+
+.feature-card .icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-cyan-glow);
+    text-shadow: var(--glow-strength-sm);
+}
+
+.glow-icon {
+    animation: pulseGlow 2s infinite alternate;
+}
+
+@keyframes pulseGlow {
+    from {
+        text-shadow: 0 0 5px var(--color-cyan-glow), 0 0 10px var(--color-cyan-accent);
+    }
+    to {
+        text-shadow: 0 0 10px var(--color-cyan-glow), 0 0 20px var(--color-cyan-accent);
+    }
+}
+
+/* How It Works Section */
+.how-it-works-section {
+    padding: 6rem 0;
+}
+
+.how-it-works-content {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+}
+
+.how-it-works-content .text-content {
+    flex: 2;
+}
+
+.how-it-works-content .visual-content {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.how-it-works-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* VIP Access Section */
+.vip-access-section {
+    padding: 6rem 0 8rem;
+    text-align: center;
+}
+
+.vip-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.vip-content p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    color: var(--color-text-light);
+}
+
+.vip-content strong {
+    color: var(--color-cyan-glow);
+    text-shadow: var(--glow-strength-sm);
+}
+
+.waitlist-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+
+.input-group label {
+    display: block;
+    text-align: left;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.waitlist-form input[type="email"] {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--color-glass-border);
+    border-radius: 8px;
+    background-color: rgba(15, 23, 42, 0.6);
+    color: var(--color-text-light);
+    font-family: var(--font-jakarta);
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.waitlist-form input[type="email"]::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.7;
+}
+
+.waitlist-form input[type="email"]:focus {
+    outline: none;
+    border-color: var(--color-cyan-accent);
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.3);
+}
+
+.input-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    padding: 1px; /* To make the glow appear inside */
+    background: conic-gradient(from var(--angle, 0deg), transparent 0%, var(--color-cyan-glow) 5%, transparent 20%, transparent 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    animation: rotate 4s linear infinite;
+    opacity: 0; /* Hidden by default */
+    pointer-events: none;
+    z-index: 0; /* Behind the input */
+}
+
+.input-group:focus-within .input-glow {
+    opacity: 1;
+}
+
+@keyframes rotate {
+    to {
+        --angle: 360deg;
+    }
+}
+
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.waitlist-submit-button {
+    min-width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.waitlist-submit-button .loading-spinner {
+    display: none;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: var(--color-text-light);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.waitlist-submit-button.loading .button-text {
+    visibility: hidden;
+}
+
+.waitlist-submit-button.loading .loading-spinner {
+    display: block;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.form-message {
+    margin-top: 1.5rem;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-family: var(--font-jakarta);
+    font-size: 1.1rem;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: absolute; /* To layer over other elements */
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    pointer-events: none; /* Allows clicks to pass through */
+}
+
+.form-message.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: all;
+}
+
+.form-message.success-message {
+    background: rgba(16, 185, 129, 0.2); /* Emerald 600 with transparency */
+    border: 1px solid rgba(16, 185, 129, 0.5);
+    color: var(--color-text-light);
+}
+
+.form-message.error-message {
+    background: rgba(239, 68, 68, 0.2); /* Red 500 with transparency */
+    border: 1px solid rgba(239, 68, 68, 0.5);
+    color: var(--color-text-light);
+}
+
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    margin-top: 4rem;
+    border-top: 1px solid var(--color-glass-border);
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+footer .social-links {
+    margin-top: 1rem;
+}
+
+footer .social-links a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    margin: 0 1rem;
+    transition: color 0.3s ease;
+}
+
+footer .social-links a:hover {
+    color: var(--color-cyan-glow);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1024px) {
+    h1 {
+        font-size: 3rem;
+    }
+    h2 {
+        font-size: 2rem;
+    }
+    header {
+        padding: 1.5rem 2rem;
+        margin: 2rem 2rem 0;
+    }
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+    .hero-content, .hero-image {
+        max-width: 100%;
+    }
+    .hero-content h2 {
+        font-size: 1.4rem;
+    }
+    .how-it-works-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .how-it-works-content .text-content,
+    .how-it-works-content .visual-content {
+        max-width: 100%;
+    }
+    .how-it-works-content img {
+        width: 100%;
+        max-width: 400px; /* Constrain image size on smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    h2 {
+        font-size: 1.8rem;
+    }
+    .section-title {
+        font-size: 2.2rem;
+        margin-bottom: 3rem;
+    }
+    header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    nav {
+        margin-top: 1rem;
+    }
+    nav a {
+        margin: 0 0.8rem;
+    }
+    main {
+        padding: 2rem 1rem;
+    }
+    .glassmorphic-card {
+        padding: 1.5rem;
+    }
+    .cta-button {
+        padding: 0.8rem 2rem;
+        font-size: 1.1rem;
+    }
+    .features-grid {
+        grid-template-columns: 1fr; /* Stack features on very small screens */
+    }
+    .vip-content p {
+        font-size: 1.1rem;
+    }
+    .waitlist-form input[type="email"] {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+    .waitlist-submit-button {
+        width: 100%;
+        min-width: unset;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+    h2 {
+        font-size: 1.3rem;
+    }
+    .logo {
+        font-size: 1.5rem;
+    }
+    nav a {
+        font-size: 0.9rem;
+        margin: 0 0.5rem;
+    }
+    .section-title {
+        font-size: 1.8rem;
+    }
+    .hero-content h2 {
+        font-size: 1.2rem;
+    }
+    .cta-button {
+        font-size: 1rem;
+        padding: 0.7rem 1.5rem;
+    }
+    .feature-card h3 {
+        font-size: 1.5rem;
+    }
+    .form-message {
+        font-size: 0.9rem;
+        padding: 0.8rem 1rem;
+    }
+}
