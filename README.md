@@ -4,6 +4,7 @@ Welcome to the **ADK Growth Hacker Agent Platform**! This is an advanced, autono
 
 Through natural language interaction, the agent strategizes copywriting hooks, establishes acquisition playbooks, and automates all GCP cloud engineering tasks—including Cloud Storage staging, Cloud Build compilation, Cloud Run provisioning, public IAM exposure, and real-time lead extraction from Cloud Logging.
 
+
 ---
 
 ## 📐 Architecture & System Flow
