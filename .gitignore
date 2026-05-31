@@ -1,0 +1,24 @@
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Databases & state files
+sessions.db
+sessions.db-journal
+.adk/
+**/session.db
+**/sessions.db
+
+# OS files
+.DS_Store
+Thumbs.db
