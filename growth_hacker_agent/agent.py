@@ -292,7 +292,17 @@ async def _fetch_waitlist_emails_rest(token: str, project_id: str, service_name:
 
 
 def write_landing_page_files(project_name: str, html_content: str, css_content: str, js_content: str) -> dict:
-    """Generates and writes the files for a mock landing page project using strict Pydantic schema validation."""
+    """Generates and writes the files for a mock landing page project using strict Pydantic schema validation.
+
+    Args:
+        project_name (str): Name or slug of the project (e.g., 'smartbrew-kettle' or 'sonic-wristband').
+        html_content (str): Complete HTML5 index.html markup including semantic layout and waitlist form.
+        css_content (str): Complete style.css stylesheet with custom theme variables and responsive styles.
+        js_content (str): Complete script.js client-side script for asynchronous waitlist submission.
+
+    Returns:
+        dict: A structured dictionary containing status, project slug, absolute directory path, and file list.
+    """
     with TraceSpan(span_name="write_landing_page_files", agent_name="landing_page_architect", intent="WRITE_LANDING_PAGE"):
         # Validate inputs via Pydantic model
         validated_input = WriteLandingPageInput(
@@ -414,7 +424,17 @@ async def deploy_landing_page(
     gcp_region: str = None,
     human_approved: bool = True
 ) -> dict:
-    """Deploys a generated landing page project to Google Cloud Run with Human-in-the-Loop approval checks."""
+    """Deploys a generated landing page project to Google Cloud Run with Human-in-the-Loop approval checks.
+
+    Args:
+        project_name (str): The name or slug of the local landing page project to deploy.
+        gcp_project_id (str, optional): Target Google Cloud project ID (autodetected if omitted). Defaults to None.
+        gcp_region (str, optional): Target Google Cloud region for deployment (e.g., 'us-central1'). Defaults to None.
+        human_approved (bool, optional): Explicit confirmation flag indicating Human-in-the-Loop authorization. Defaults to True.
+
+    Returns:
+        dict: A structured dictionary containing deployment status, service name, live verified HTTPS URL, and GCP metadata.
+    """
     with TraceSpan(span_name="deploy_landing_page", agent_name="cloud_deployer_agent", intent="DEPLOY_CLOUD_RUN"):
         # Validate Human-in-the-Loop approval gate
         is_approved, gate_msg = HumanInTheLoopGate.check_approval(
@@ -558,7 +578,11 @@ async def deploy_landing_page(
 
 
 def list_deployments() -> dict:
-    """Lists locally generated landing page project folders."""
+    """Lists locally generated landing page project folders stored in the deployments directory.
+
+    Returns:
+        dict: A structured dictionary containing status, count, and list of discovered local deployment directories.
+    """
     with TraceSpan(span_name="list_deployments", agent_name="cloud_deployer_agent", intent="LIST_LOCAL_DEPLOYMENTS"):
         if not os.path.exists(DEPLOYMENTS_DIR):
             return ListDeploymentsResult(status="success", deployments=[], count=0).model_dump()
@@ -569,7 +593,15 @@ def list_deployments() -> dict:
 
 
 async def list_cloud_run_services(gcp_project_id: str = None, gcp_region: str = None) -> dict:
-    """Queries live Cloud Run services in the target GCP Project."""
+    """Queries live Cloud Run services in the target Google Cloud Project.
+
+    Args:
+        gcp_project_id (str, optional): Target Google Cloud project ID (autodetected if omitted). Defaults to None.
+        gcp_region (str, optional): Target Google Cloud region (e.g., 'us-central1'). Defaults to None.
+
+    Returns:
+        dict: A structured dictionary containing status, discovered services list, project ID, and region.
+    """
     with TraceSpan(span_name="list_cloud_run_services", agent_name="cloud_deployer_agent", intent="LIST_SERVICES"):
         project_id, region = _resolve_project_and_region(gcp_project_id, gcp_region)
         try:
@@ -597,7 +629,15 @@ async def list_cloud_run_services(gcp_project_id: str = None, gcp_region: str = 
 
 
 async def fetch_waitlist_emails(project_name: str, gcp_project_id: str = None) -> dict:
-    """Retrieves waitlist lead signups with automatic PII redaction."""
+    """Retrieves waitlist lead signups from Google Cloud Logging with automatic PII redaction.
+
+    Args:
+        project_name (str): The name or slug of the landing page project to query leads for.
+        gcp_project_id (str, optional): Target Google Cloud project ID (autodetected if omitted). Defaults to None.
+
+    Returns:
+        dict: A structured dictionary containing status, service name, lead count, and redacted lead emails list.
+    """
     with TraceSpan(span_name="fetch_waitlist_emails", agent_name="lead_analytics_agent", intent="FETCH_LEADS"):
         slug = "".join([c if c.isalnum() or c in "-_" else "" for c in project_name.lower().replace(" ", "-")])
         service_name = f"lp-{slug}"
