@@ -1,0 +1,4 @@
+project_id      = "genai-demos-avr-2024"
+region          = "us-central1"
+service_name    = "lp-growth-hacker"
+container_image = "gcr.io/genai-demos-avr-2024/lp-growth-hacker:latest"

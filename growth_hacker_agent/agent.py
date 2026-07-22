@@ -385,11 +385,25 @@ app.mount("/", StaticFiles(directory="static", html=True), name="static")
         with open(os.path.join(proj_dir, "Dockerfile"), "w", encoding="utf-8") as f:
             f.write(docker_content)
 
+        # Write Terraform IaC configuration
+        terraform_content = f"""resource "google_cloud_run_v2_service" "landing_page" {{
+  name     = "lp-{slug}"
+  location = "us-central1"
+  template {{
+    containers {{
+      image = "gcr.io/PROJECT_ID/lp-{slug}:latest"
+    }}
+  }}
+}}
+"""
+        with open(os.path.join(proj_dir, "main.tf"), "w", encoding="utf-8") as f:
+            f.write(terraform_content)
+
         result = WriteLandingPageResult(
             status="success",
             slug=slug,
             project_dir=proj_dir,
-            files=["static/index.html", "static/style.css", "static/script.js", "main.py", "requirements.txt", "Dockerfile"]
+            files=["static/index.html", "static/style.css", "static/script.js", "main.py", "requirements.txt", "Dockerfile", "main.tf"]
         )
         return result.model_dump()
 
