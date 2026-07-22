@@ -1,14 +1,16 @@
 import unittest
+import os
 from growth_hacker_agent.agent import (
     root_agent,
     landing_page_architect,
     cloud_deployer_agent,
     lead_analytics_agent
 )
+from eval.eval_harness import GoldenDatasetEvalHarness
 
 
 class TestAgentOrchestrationAndEval(unittest.TestCase):
-    """Automated agent evaluation suite verifying multi-agent architecture and model routing."""
+    """Automated agent evaluation suite verifying multi-agent architecture and golden dataset benchmarks."""
 
     def test_multi_agent_subagent_registry(self):
         self.assertIsNotNone(root_agent.sub_agents)
@@ -25,17 +27,13 @@ class TestAgentOrchestrationAndEval(unittest.TestCase):
         self.assertEqual(cloud_deployer_agent.model.model, "gemini-2.5-flash")
         self.assertEqual(lead_analytics_agent.model.model, "gemini-2.5-flash")
 
-    def test_agent_rubric_evaluation(self):
-        """Simulates automated LLM-as-a-judge / rubric evaluation scoring."""
-        eval_scores = {
-            "tool_and_interface_design": 20,
-            "context_and_memory": 20,
-            "orchestration_and_logic": 20,
-            "observability_and_tracing": 20,
-            "infrastructure_and_cicd": 20,
-        }
-        total = sum(eval_scores.values())
-        self.assertEqual(total, 100)
+    def test_golden_dataset_eval_harness(self):
+        """Executes full evaluation harness against the golden dataset and asserts 100% pass rate."""
+        harness = GoldenDatasetEvalHarness()
+        report = harness.run_evaluation()
+        self.assertEqual(report["status"], "PASSED")
+        self.assertGreaterEqual(report["overall_accuracy_percentage"], 90.0)
+        self.assertEqual(report["passed_test_cases"], report["total_test_cases"])
 
 
 if __name__ == "__main__":

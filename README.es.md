@@ -178,3 +178,37 @@ Tu cuenta activa o cuenta de servicio de GCP requiere los siguientes permisos pa
 | **Cuentas de Servicio** | `roles/iam.serviceAccountUser` | Correr el contenedor bajo el contexto del Compute Engine predeterminado. |
 | **Cloud Logging** | `roles/logging.viewer` | Consultar logs en tiempo real para capturar leads (`[LEAD] ...`). |
 | **Project IAM / Run Policy** | `roles/run.developer` o `roles/resourcemanager.projectIamAdmin` | Aplicar políticas de acceso público sin autenticar (`allUsers`). |
+
+---
+
+## 🧪 Pruebas Automatizadas y Evaluación con Golden Dataset
+
+La plataforma incluye un arnés de evaluación automatizado que valida el agente frente al dataset de referencia (**Golden Dataset** `eval/golden_dataset.json`):
+
+```bash
+# Ejecutar el arnés de evaluación completo
+python -m eval.eval_harness
+
+# Ejecutar la suite completa de pruebas unitarias
+python -m unittest discover tests
+```
+
+---
+
+## 🏗️ Infraestructura como Código (Terraform)
+
+La infraestructura de Google Cloud Run puede aprovisionarse de forma declarativa mediante **Terraform**:
+
+```bash
+cd terraform/
+
+# Inicializar proveedores
+terraform init
+
+# Planificar despliegue
+terraform plan
+
+# Aplicar infraestructura
+terraform apply
+```
+

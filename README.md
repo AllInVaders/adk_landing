@@ -184,3 +184,37 @@ To perform the automated deployment and lead retrieval successfully, the active 
 | **Service Accounts** | `roles/iam.serviceAccountUser` | Required to run Cloud Run containers under the default Compute Engine service account context. |
 | **Cloud Logging** | `roles/logging.viewer` | Required to query waitlist stdout lead registers (`[LEAD] ...`) from logs. |
 | **Project IAM / Run Policy** | `roles/run.developer` or `roles/resourcemanager.projectIamAdmin` | Required to modify the IAM policy on Cloud Run services to grant public Access (`allUsers` invoker). |
+
+---
+
+## 🧪 Automated Testing & Golden Dataset Evaluation
+
+The platform includes an automated testing harness that benchmarks the Growth Hacker Agent against a curated **Golden Dataset** (`eval/golden_dataset.json`):
+
+```bash
+# Execute the full Golden Dataset Evaluation Harness
+python -m eval.eval_harness
+
+# Or run all unit and evaluation tests with Python unittest
+python -m unittest discover tests
+```
+
+---
+
+## 🏗️ Infrastructure as Code (Terraform)
+
+In addition to dynamic programmatic deployments, production infrastructure can be provisioned declaratively via **Terraform**:
+
+```bash
+cd terraform/
+
+# Initialize Terraform providers
+terraform init
+
+# Review execution plan
+terraform plan
+
+# Apply infrastructure changes
+terraform apply
+```
+
