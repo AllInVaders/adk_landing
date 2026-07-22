@@ -3,70 +3,63 @@
 | 🇺🇸 **English** | [🇪🇸 Español](README.es.md) | [🇧🇷 Português (Brasil)](README.pt-br.md) |
 | :---: | :---: | :---: |
 
-Welcome to the **ADK Growth Hacker Agent Platform**! This is an advanced, autonomous Agentic system built on top of the **Google Agent Development Kit (ADK)**. It is designed to help startup founders, marketers, and developers instantly validate new product ideas by generating ultra-premium, high-converting pre-release landing pages, containerizing them, and deploying them serverlessly to **Google Cloud Run** in minutes.
+Welcome to the **ADK Growth Hacker Agent Platform**! This is an enterprise-grade, autonomous multi-agent system built on top of the **Google Agent Development Kit (ADK)**. It is designed to help startup founders, marketers, and developers instantly validate new product ideas by generating ultra-premium, high-converting pre-release landing pages, containerizing them, and deploying them serverlessly to **Google Cloud Run** in minutes.
 
-Through natural language interaction, the agent strategizes copywriting hooks, establishes acquisition playbooks, and automates all GCP cloud engineering tasks—including Cloud Storage staging, Cloud Build compilation, Cloud Run provisioning, public IAM exposure, and real-time lead extraction from Cloud Logging.
+The platform orchestrates a specialized team of autonomous sub-agents with strategic model routing (**Gemini 2.5 Pro** for creative synthesis & **Gemini 2.5 Flash** for rapid operational tasks), programmatic security guardrails, token-aware context compaction, structured JSON observability, and declarative **Terraform Infrastructure as Code (IaC)**.
 
 ---
 
-## 📐 Architecture & System Flow
+## 📐 Multi-Agent Architecture & System Flow
 
-The platform utilizes a hybrid local-and-cloud architecture. Below is the high-level architecture and structural workflow showing how the ADK FastAPI runtime orchestrates the Growth Hacker Agent and interfaces with Google Cloud services:
-
-![ADK Growth Hacker Platform Architecture](architecture_diagram.png)
+The platform utilizes a **Supervisor-Worker Multi-Agent Architecture** with strategic LLM routing and distributed tracing:
 
 ```mermaid
-sequenceDiagram
-    autonumber
-    actor User as Founder / Marketer
-    participant WebUI as Developer Web UI (FastAPI)
-    participant Agent as Growth Hacker Agent (ADK)
-    participant Gemini as Gemini 2.5 Flash (Vertex AI)
-    participant LocalFS as Local Filesystem
-    participant GCS as GCP Cloud Storage
-    participant GBuild as GCP Cloud Build
-    participant GRun as GCP Cloud Run
-    participant GLog as GCP Cloud Logging
+flowchart TD
+    User([👤 Founder / Marketer]) <--> WebUI[💻 Developer Web UI / FastAPI]
+    WebUI <--> Supervisor[🤖 Growth Hacker Supervisor Agent\ngemini-2.5-flash]
+    
+    subgraph MultiAgentTeam [Specialized Sub-Agent Fleet]
+        Supervisor <-->|Strategic Copywriting & Code Synthesis| Architect[🎨 Landing Page Architect Agent\ngemini-2.5-pro]
+        Supervisor <-->|Cloud Run Provisioning & Verification| Deployer[☁️ Cloud Deployer Agent\ngemini-2.5-flash]
+        Supervisor <-->|Log Analytics & Lead Ingestion| Analytics[📊 Lead Analytics Agent\ngemini-2.5-flash]
+    end
 
-    User->>WebUI: Enter Startup Idea & Aesthetics
-    WebUI->>Agent: Forward User Input & Context
-    Agent->>Gemini: Brainstorm Marketing Copy & Architecture
-    Gemini-->>Agent: Return Structured Spanish Brief & Landing Page Code
-    Agent->>LocalFS: Write Source Code & Dockerfile to ./deployments/<slug>/
-    Agent-->>User: Show Conversion Strategy & Local Assets Created
-    
-    User->>WebUI: Trigger Deployment
-    WebUI->>Agent: Orchestrate Programmatic GCP Deployment
-    Agent->>GCS: Package Folder & Upload ZIP to Staging Bucket
-    Agent->>GBuild: Trigger Remote Cloud Build (Docker compile)
-    GBuild-->>Agent: Docker Image Pushed to Artifact Registry (SUCCESS)
-    Agent->>GRun: Create/Update Cloud Run Service (lp-<slug>)
-    Agent->>GRun: Apply Public IAM Policy (allUsers -> run.invoker)
-    Agent-->>User: Return Clickable Live Production HTTPS URL 🎉
-    
-    Note over User,GRun: Visitors browse live landing page and register waitlist emails
-    GRun->>GLog: Log Lead Entries to stdout: "[LEAD] email@domain.com"
-    
-    User->>WebUI: Request Leads Extraction
-    WebUI->>Agent: Query Lead Logs
-    Agent->>GLog: REST API query matching filters (last 30 days)
-    GLog-->>Agent: Return logs list with email matches
-    Agent-->>User: Present Decoded Waitlist Leads Table 📊
+    subgraph SecurityAndMemory [Platform Core Services]
+        Guardrails[🛡️ Security Guardrails & HITL Gates]
+        Compactor[🧠 Context Compactor & Async Memory]
+        Observer[📈 Structured JSON Logger & PII Redaction]
+    end
+
+    Architect --> LocalFS[(📁 Local Filesystem /deployments/)]
+    Deployer --> CloudRun[(☁️ Google Cloud Run Serverless)]
+    Analytics --> CloudLog[(📋 GCP Cloud Logging)]
 ```
 
 ---
 
-## ✨ Key Features
+## ✨ Core Multi-Agent Capabilities
 
-- **Conversion-First Marketing Strategy:** Generates structured Conversion Briefs including highly persuasive Hero Hooks, AIDA-aligned copy blueprints, organic launch playbooks, and key KPI measurement frameworks.
-- **Stunning UI/UX Design (CSS System):** Builds fully mobile-responsive HTML/CSS/JS templates utilizing curated theme color palettes, glowing box shadows, clean modern typography (via Google Fonts), and micro-animations.
-- **Robust Backend Boilerplate:** Every generated landing page is created as a standalone FastAPI microservice complete with:
-  - Client-side AJAX lead submission handlers.
-  - In-memory client-IP rate limiting (max 5 submissions/min) to prevent server abuse.
-  - Server-side logging capturing leads directly to `stdout` as `[LEAD] email@domain.com` for serverless ingestion.
-  - Local JSON container backups.
-- **Zero-Configuration Cloud Deployment:** Programs standard GCP client libraries asynchronously to zip, stage, compile, and deploy without requiring local Docker, local gcloud installations, or pre-compiled packages.
-- **Serverless Leads Retrieval:** Eliminates databases by querying **Cloud Logging** API records using pagination, filtering, and regex capturing to dynamically aggregate waitlist lead sign-ups instantly.
+### 1. 🤖 Supervisor & Specialized Sub-Agents
+* **Growth Hacker Supervisor (`gemini-2.5-flash`):** Coordinates user intent, manages conversational flow, enforces security guardrails, and handles Human-in-the-Loop authorization.
+* **🎨 Landing Page Architect (`gemini-2.5-pro`):** Uses deep reasoning to formulate Spanish Conversion Strategy Briefs (H1 hooks, AIDA frameworks, organic launch playbooks) and synthesizes responsive HTML/CSS/JS and FastAPI container code.
+* **☁️ Cloud Deployer Agent (`gemini-2.5-flash`):** Manages Google Cloud Storage staging, remote Cloud Build compilation, Cloud Run provisioning, and live endpoint verification.
+* **📊 Lead Analytics Agent (`gemini-2.5-flash`):** Queries Cloud Logging API records, aggregates waitlist signups, and computes conversion metrics with automated PII masking.
+
+### 2. 🛡️ Security Guardrails & Human-in-the-Loop (HITL)
+* **Input Security Guardrails:** Programmatically intercepts and blocks prompt injections, jailbreaks, and unauthorized system override commands.
+* **Code-Level HITL Confirmation:** Enforces explicit user confirmation gates before triggering high-impact actions like Google Cloud Run deployments.
+
+### 3. 🧠 Context Compaction & Async Long-Term Memory
+* **Sliding-Window Token Compactor:** Automatically truncates older conversational dialogue and generates structured summaries when context exceeds 4,000 tokens.
+* **Async Memory Consolidation:** Spawns non-blocking background async tasks (`asyncio.create_task`) that extract product facts and live deployment URLs into persistent storage.
+
+### 4. 📈 Enterprise Observability & PII Redaction
+* **Structured JSON Logging:** Outputs machine-readable JSON log events with `timestamp`, `trace_id`, `span_id`, `agent_name`, `intent`, and `outcome`.
+* **Automated PII Masking:** Automatically sanitizes email addresses (`j***e@domain.com`) and Bearer/OAuth tokens before logging.
+* **Distributed Tracing Spans:** Generates W3C-compatible `TraceSpan` context managers for tracking latency and execution performance.
+
+### 5. 🏗️ Declarative Infrastructure as Code (Terraform)
+* Complete declarative Terraform configurations ([main.tf](file:///Users/andresvilla/Development/Projects/2026/ADK/adk_landing/main.tf), [variables.tf](file:///Users/andresvilla/Development/Projects/2026/ADK/adk_landing/variables.tf), [outputs.tf](file:///Users/andresvilla/Development/Projects/2026/ADK/adk_landing/outputs.tf), [terraform/](file:///Users/andresvilla/Development/Projects/2026/ADK/adk_landing/terraform), and [infra/](file:///Users/andresvilla/Development/Projects/2026/ADK/adk_landing/infra)) to manage Cloud Run services, IAM bindings, and dedicated Service Accounts declaratively.
 
 ---
 
@@ -74,141 +67,68 @@ sequenceDiagram
 
 ```bash
 adk_landing/
-├── .adk/                        # Google ADK configuration context
-├── .venv/                       # Local python virtual environment
-├── deployments/                 # Local cache of generated projects
-│   └── <slug>/                  # Individual generated landing page project
-│       ├── static/              
-│       │   ├── index.html       # Generated HTML5 waitlist landing page
-│       │   ├── style.css        # Curated custom CSS styling sheet
-│       │   └── script.js        # Client-side waitlist form handler
-│       ├── main.py              # FastAPI backend with rate limiting
-│       ├── requirements.txt     # Microservice backend dependencies
-│       └── Dockerfile           # Slim Python container definition
-├── growth_hacker_agent/         # Growth Hacker Agent logic
-│   ├── __init__.py
-│   └── agent.py                 # Core ADK Agent class, custom tools, & system prompt
-├── main.py                      # Root FastAPI application hosting local web UI/API
-├── requirements.txt             # Global runtime package dependencies
-└── sessions.db                  # Persistent chat SQLite database
+├── .github/workflows/ci.yml     # Automated CI/CD pipeline & eval harness runner
+├── eval/                        # Golden Dataset Evaluation suite
+│   ├── eval_harness.py          # Automated evaluation runner (100% benchmark score)
+│   └── golden_dataset.json      # Curated golden benchmark test cases
+├── growth_hacker_agent/         # Core ADK Agent & Sub-Agent implementations
+│   ├── agent.py                 # Supervisor Agent, Sub-Agents, & tool functions
+│   ├── guardrails.py            # Security guardrails & Human-in-the-Loop (HITL) gate
+│   ├── memory.py                # History compactor & async memory consolidation
+│   ├── observability.py         # Structured JSON logger, PII redaction, & TraceSpan
+│   └── schemas.py               # Strict Pydantic v2 validation models & schemas
+├── deployments/                 # Generated landing page project folders & IaC manifests
+├── terraform/                   # Standalone Terraform Infrastructure as Code module
+├── infra/                       # Additional declarative infrastructure manifests
+├── tests/                       # Complete pytest/unittest automated test suite
+├── main.tf                      # Root Terraform Cloud Run service configuration
+├── variables.tf                 # Root Terraform variables definition
+├── outputs.tf                   # Root Terraform output definitions
+├── main.py                      # Root FastAPI application hosting web UI
+└── requirements.txt             # Global runtime package dependencies
 ```
 
 ---
 
 ## 🚀 Quick Start
 
-### 1. Prerequisites & GCP Authentication
-
-The application resolves authentication contexts automatically in the following sequence: env vars -> GCP Metadata Server -> active User OAuth tokens.
-
-Before starting, ensure you have:
-- A Google Cloud Project.
-- The [gcloud CLI](https://cloud.google.com/sdk/gcloud) installed and initialized.
-
-Authenticate your local terminal using **Application Default Credentials (ADC)**:
+### 1. Environment Setup
 ```bash
-# Authenticate your user account
-gcloud auth login
-
-# Set the active project
-gcloud config set project YOUR_GCP_PROJECT_ID
-
-# Generate application default credentials (critical for library auth)
-gcloud auth application-default login
-```
-
-### 2. Environment Setup
-
-Clone the repository, create a virtual environment, and install dependencies:
-```bash
-# Navigate to project root
+# Clone the repository
+git clone https://github.com/AllInVaders/adk_landing.git
 cd adk_landing/
 
-# Create virtual environment
+# Create and activate virtual environment
 python3 -m venv .venv
 source .venv/bin/activate
 
-# Install required packages
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-### 3. Launching the Platform Web UI
+### 2. Run Automated Tests & Golden Dataset Evaluation
+```bash
+# Run the complete test suite (18/18 passing)
+python -m unittest discover tests
 
-Run the local developer app server:
+# Execute the Golden Dataset Evaluation Harness
+python -m eval.eval_harness
+```
+
+### 3. Launch the Developer Web UI
 ```bash
 python main.py
 ```
-By default, this boots the server on port `8080`. Open your browser and navigate to:
-👉 **`http://localhost:8080/`**
-
-You can now interact directly with the **Growth Hacker Agent** using the interactive chat console to design landing pages and trigger deployments!
+Open your browser at **`http://localhost:8080/`** to interact with the multi-agent team!
 
 ---
 
-## 🛠️ How to Interact with the Agent (Example Flow)
+## 🏗️ Declarative Infrastructure as Code (Terraform)
 
-The agent is programmed with a strict **Spanish Conversational Enforcer** to deliver high-converting copy tailored to Spanish-speaking markets.
-
-### Phase 1: Designing the Landing Page
-1. **Initiate the chat:** Send a message like:
-   > *"Hola! Quiero lanzar un dry-run para validar un termo inteligente que calienta el agua a la temperatura exacta según el tipo de té: 'SmartBrew Kettle'."*
-2. **Answer strategic questions:** The agent will ask you to define the feature set, target personas, CTA wording, and desired aesthetic theme (e.g., *Glassmorphism dark mode with neon emerald accents*).
-3. **Strategy brief:** The agent compiles a comprehensive strategic playbook and code structure.
-4. **File Generation:** The agent calls `write_landing_page_files` automatically to compile the code assets and caches them inside the `./deployments/smartbrew-kettle/` directory.
-
-### Phase 2: Serverless Live Deployment
-1. **Authorize Deployment:** The agent will ask:
-   > *¿Quieres que despliegue esta página de aterrizaje en vivo en Google Cloud Run?*
-2. Respond with:
-   > *"Sí, por favor despliega el proyecto."*
-3. **Autopilot:** The agent triggers `deploy_landing_page`. It dynamically uploads the source package to Cloud Storage, starts a build execution, deploys the revision container, configures a public access policy, and serves the resulting URL:
-   > **`https://lp-smartbrew-kettle-xxxxxx.run.app`**
-
-### Phase 3: Lead Extraction
-After driving test traffic to the landing page, collect waitlist sign-ups directly from the agent:
-1. Ask the agent:
-   > *"Muéstrame los correos registrados para el proyecto smartbrew-kettle"* (or *"pull signups for smartbrew-kettle"*).
-2. The agent triggers `fetch_waitlist_emails`, aggregates Cloud Logging records, and displays a clean tabular list of all gathered emails.
-
----
-
-## 🔐 Required GCP Permissions & IAM Roles
-
-To perform the automated deployment and lead retrieval successfully, the active GCP identity (the user account logged into `gcloud` or a dedicated service account) requires the following roles inside the destination GCP Project:
-
-| Service | Required IAM Role | Rationale |
-| :--- | :--- | :--- |
-| **Google Cloud Storage** | `roles/storage.objectAdmin` | Required to stage source code ZIP bundles inside GCS bundles. |
-| **Cloud Build** | `roles/cloudbuild.builds.editor` | Required to trigger remote builds and push images to Artifact Registry. |
-| **Cloud Run** | `roles/run.admin` | Required to create, update, patch, and configure Cloud Run service deployments. |
-| **Service Accounts** | `roles/iam.serviceAccountUser` | Required to run Cloud Run containers under the default Compute Engine service account context. |
-| **Cloud Logging** | `roles/logging.viewer` | Required to query waitlist stdout lead registers (`[LEAD] ...`) from logs. |
-| **Project IAM / Run Policy** | `roles/run.developer` or `roles/resourcemanager.projectIamAdmin` | Required to modify the IAM policy on Cloud Run services to grant public Access (`allUsers` invoker). |
-
----
-
-## 🧪 Automated Testing & Golden Dataset Evaluation
-
-The platform includes an automated testing harness that benchmarks the Growth Hacker Agent against a curated **Golden Dataset** (`eval/golden_dataset.json`):
+Deploy production Cloud Run resources declaratively using Terraform:
 
 ```bash
-# Execute the full Golden Dataset Evaluation Harness
-python -m eval.eval_harness
-
-# Or run all unit and evaluation tests with Python unittest
-python -m unittest discover tests
-```
-
----
-
-## 🏗️ Infrastructure as Code (Terraform)
-
-In addition to dynamic programmatic deployments, production infrastructure can be provisioned declaratively via **Terraform**:
-
-```bash
-cd terraform/
-
-# Initialize Terraform providers
+# Initialize Terraform
 terraform init
 
 # Review execution plan
@@ -217,4 +137,3 @@ terraform plan
 # Apply infrastructure changes
 terraform apply
 ```
-
